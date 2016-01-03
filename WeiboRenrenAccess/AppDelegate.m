@@ -7,8 +7,15 @@
 //
 
 #import "AppDelegate.h"
+#import "RRViewController.h"
+#import "WBViewController.h"
+#import "RennSDK/RennSDK.h"
+#import "RRDBAvalability.h"
 
 @interface AppDelegate ()
+
+@property (strong, nonatomic) UIManagedDocument * rrDocument;
+@property (strong, nonatomic) NSURL * rrUrl;
 
 @end
 
@@ -17,7 +24,69 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     // Override point for customization after application launch.
+    
+    if ([[NSFileManager defaultManager] fileExistsAtPath:[self.rrUrl path]]) {
+        [self.rrDocument openWithCompletionHandler:^(BOOL success) {
+            if (success) {
+                [self documentIsReady];
+            } else {
+                NSLog(@"Unable to open URL %@", self.rrUrl);
+            }
+        }];
+    }
+    else{
+        
+        [self.rrDocument saveToURL:self.rrUrl forSaveOperation:UIDocumentSaveForCreating completionHandler:^(BOOL success) {
+            if (success) {
+                [self documentIsReady];
+            } else {
+                NSLog(@"Unable to open URL %@", self.rrUrl);
+            }
+        }];
+    }
+    
     return YES;
+}
+
+
+- (void) documentIsReady
+{
+    if (self.rrDocument.documentState == UIDocumentStateNormal) {
+        
+        NSDictionary *userInfo = self.rrDocument.managedObjectContext ? @{ RRDBAvailabilityContext : self.rrDocument.managedObjectContext  } : nil;
+        [[NSNotificationCenter defaultCenter] postNotificationName:RRDBAvailabilityNotification
+                                                            object:self
+                                                          userInfo:userInfo];
+    }
+    else
+    {
+        NSLog(@"Docment state is %d, can not send out database notification", self.rrDocument.documentState);
+    }
+    
+}
+
+- (NSURL *)rrUrl
+{
+    if (!_rrUrl) {
+        NSFileManager * fileManager = [NSFileManager defaultManager];
+        NSURL *documentDirectory = [[fileManager URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] firstObject];
+        
+        NSString * documentName = @"MyDocument";
+        _rrUrl = [documentDirectory URLByAppendingPathComponent:documentName];
+    }
+    
+    return _rrUrl;
+}
+
+- (UIManagedDocument *)rrDocument
+{
+    if (!_rrDocument) {
+        //Initialize UIManagedDocument here
+         _rrDocument = [[UIManagedDocument alloc]initWithFileURL:self.rrUrl];
+
+    }
+    
+    return _rrDocument;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application {
@@ -41,5 +110,11 @@
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
+
+
+#pragma RenRen login delegate
+
+
+
 
 @end

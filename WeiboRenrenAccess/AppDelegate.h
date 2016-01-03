@@ -10,6 +10,9 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
+//@property (strong, nonatomic) UINavigationController * RRNavigationController;
+//@property (strong, nonatomic) UINavigationController * WBNavigationController;
+
 @property (strong, nonatomic) UIWindow *window;
 
 

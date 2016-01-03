@@ -1,5 +1,5 @@
 //
-//  FirstViewController.h
+//  WBViewController.h
 //  WeiboRenrenAccess
 //
 //  Created by Nan Shen on 15/8/30.
@@ -8,8 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface FirstViewController : UIViewController
-
+@interface WBViewController : UIViewController
 
 @end
-
