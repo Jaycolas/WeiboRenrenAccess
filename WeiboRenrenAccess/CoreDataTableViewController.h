@@ -19,7 +19,7 @@
 #import <UIKit/UIKit.h>
 #import <CoreData/CoreData.h>
 
-@interface CoreDataTableViewController : UITableViewController <NSFetchedResultsControllerDelegate>
+@interface CoreDataTableViewController : UITableViewController <NSFetchedResultsControllerDelegate, UISearchResultsUpdating>
 
 // The controller (this class fetches nothing if this is not set).
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
@@ -30,7 +30,13 @@
 //  (so if the objects in the context change, you do not need to call performFetch
 //   since the NSFetchedResultsController will notice and update the table automatically).
 // This will also automatically be called if you change the fetchedResultsController @property.
-- (void)performFetch;
+
+//Integrate a new search controller into CoreDataTableViewController and a searchFetchResultController
+@property (strong,nonatomic) UISearchController * nameSearchController;
+@property (strong,nonatomic) NSFetchedResultsController * seachFRC;
+
+
+- (void)performFetch:(NSFetchedResultsController *)NSFRC;
 
 // Set to YES to get some debugging output in the console.
 @property BOOL debug;

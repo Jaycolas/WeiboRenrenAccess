@@ -15,14 +15,17 @@
         <relationship name="whoTook" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="albums" inverseEntity="User" syncable="YES"/>
     </entity>
     <entity name="Photo" representedClassName="Photo" syncable="YES">
-        <attribute name="albumId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
-        <attribute name="commentCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="albumId" optional="YES" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
+        <attribute name="commentCount" optional="YES" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
         <attribute name="createTime" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="identify" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="ownerId" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="identify" optional="YES" attributeType="Decimal" defaultValueString="0.0" syncable="YES"/>
+        <attribute name="imageHeadUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageLargeUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageMainUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="imageTinyUrl" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="ownerId" optional="YES" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
         <attribute name="photoDescription" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="viewCount" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="viewCount" optional="YES" attributeType="Decimal" defaultValueString="0" syncable="YES"/>
         <relationship name="whichAlbum" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Album" inverseName="photos" inverseEntity="Album" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" syncable="YES">
@@ -33,7 +36,7 @@
     </entity>
     <elements>
         <element name="Album" positionX="214" positionY="116" width="128" height="223"/>
-        <element name="Photo" positionX="-63" positionY="-18" width="128" height="178"/>
+        <element name="Photo" positionX="-63" positionY="-18" width="128" height="223"/>
         <element name="User" positionX="196" positionY="-117" width="128" height="103"/>
     </elements>
 </model>

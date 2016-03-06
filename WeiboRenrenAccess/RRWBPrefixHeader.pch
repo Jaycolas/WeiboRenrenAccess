@@ -17,4 +17,8 @@
 #define SCREEN_HEIGHT ([[UIScreen mainScreen] bounds].size.height)
 #define SCREEN_FRAME ([UIScreen mainScreen].applicationFrame)
 
+//com.sina.weibo.SNWeiboSDKDemo
+#define kAppKey         @"2045436852"
+#define kRedirectURI    @"http://www.sina.com"
+
 #endif

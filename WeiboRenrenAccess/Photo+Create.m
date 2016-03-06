@@ -26,13 +26,17 @@
 */
 
 
-+ (Photo *)photoWithId: (NSNumber *) albumId
-     photoCommentCount: (NSNumber *) commentCount
++ (Photo *)photoWithId: (NSDecimalNumber *) albumId
+     photoCommentCount: (NSDecimalNumber *) commentCount
        photoCreateTime: (NSString *) createTime
-         photoIdentify: (NSString *) identify
-          photoOwnerId: (NSNumber *) ownerId
+         photoIdentify: (NSDecimalNumber *) identify
+     photoHeadImageUrl: (NSString *) imageHeadUrl
+    photoLargeImageUrl: (NSString *) imageLargeUrl
+     photoTinyImageUrl: (NSString *) imageTinyUrl
+     photoMainImageUrl: (NSString *) imageMainUrl
+          photoOwnerId: (NSDecimalNumber *) ownerId
       photoDescription: (NSString *) description
-        photoViewCount: (NSNumber *) viewCount
+        photoViewCount: (NSDecimalNumber *) viewCount
        photoWhichAlbum: (Album *) whichAlbum
 inManagedObjectContext: (NSManagedObjectContext *)context
 {
@@ -60,6 +64,10 @@ inManagedObjectContext: (NSManagedObjectContext *)context
             photo.photoDescription = description;
             photo.viewCount = viewCount;
             photo.whichAlbum = whichAlbum;
+            photo.imageHeadUrl = imageHeadUrl;
+            photo.imageLargeUrl = imageLargeUrl;
+            photo.imageMainUrl = imageMainUrl;
+            photo.imageTinyUrl = imageTinyUrl;
             
             
             

@@ -2,8 +2,8 @@
 //  Photo.h
 //  WeiboRenrenAccess
 //
-//  Created by Nan Shen on 15/12/10.
-//  Copyright (c) 2015年 Nan Shen. All rights reserved.
+//  Created by Nan Shen on 16/1/19.
+//  Copyright (c) 2016年 Nan Shen. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
@@ -13,14 +13,17 @@
 
 @interface Photo : NSManagedObject
 
-@property (nonatomic, retain) NSNumber * albumId;
-@property (nonatomic, retain) NSNumber * commentCount;
+@property (nonatomic, retain) NSDecimalNumber * albumId;
+@property (nonatomic, retain) NSDecimalNumber * commentCount;
 @property (nonatomic, retain) NSString * createTime;
-@property (nonatomic, retain) NSString * identify;
-@property (nonatomic, retain) NSString * imageUrl;
-@property (nonatomic, retain) NSNumber * ownerId;
+@property (nonatomic, retain) NSDecimalNumber * identify;
+@property (nonatomic, retain) NSString * imageHeadUrl;
+@property (nonatomic, retain) NSDecimalNumber * ownerId;
 @property (nonatomic, retain) NSString * photoDescription;
-@property (nonatomic, retain) NSNumber * viewCount;
+@property (nonatomic, retain) NSDecimalNumber * viewCount;
+@property (nonatomic, retain) NSString * imageLargeUrl;
+@property (nonatomic, retain) NSString * imageMainUrl;
+@property (nonatomic, retain) NSString * imageTinyUrl;
 @property (nonatomic, retain) Album *whichAlbum;
 
 @end

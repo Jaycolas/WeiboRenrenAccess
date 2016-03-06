@@ -2,8 +2,8 @@
 //  Photo.m
 //  WeiboRenrenAccess
 //
-//  Created by Nan Shen on 15/12/10.
-//  Copyright (c) 2015年 Nan Shen. All rights reserved.
+//  Created by Nan Shen on 16/1/19.
+//  Copyright (c) 2016年 Nan Shen. All rights reserved.
 //
 
 #import "Photo.h"
@@ -16,10 +16,13 @@
 @dynamic commentCount;
 @dynamic createTime;
 @dynamic identify;
-@dynamic imageUrl;
+@dynamic imageHeadUrl;
 @dynamic ownerId;
 @dynamic photoDescription;
 @dynamic viewCount;
+@dynamic imageLargeUrl;
+@dynamic imageMainUrl;
+@dynamic imageTinyUrl;
 @dynamic whichAlbum;
 
 @end

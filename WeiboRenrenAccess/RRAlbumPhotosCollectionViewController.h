@@ -15,6 +15,7 @@
 @property (strong, nonatomic) NSIndexPath * indexPath;
 @property (strong, nonatomic) User * selectedUser;
 @property (strong, nonatomic) Album * selectedAlbum;
+@property (strong, nonatomic) Photo * selectedPhoto;
 @property (nonatomic, strong) NSManagedObjectContext *managedObjectContext;
 
 

@@ -11,16 +11,27 @@
 
 #pragma mark - Fetching
 
-- (void)performFetch
+- (void)viewDidLoad
 {
-    if (self.fetchedResultsController) {
-        if (self.fetchedResultsController.fetchRequest.predicate) {
-            if (self.debug) NSLog(@"[%@ %@] fetching %@ with predicate: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName, self.fetchedResultsController.fetchRequest.predicate);
+    [super viewDidLoad];
+    
+    //To set debug flag conveniently
+    self.debug = YES;
+    
+    
+}
+
+- (void)performFetch:(NSFetchedResultsController *)NSFRC
+{
+    if (NSFRC) {
+        if (NSFRC.fetchRequest.predicate) {
+            if (self.debug) NSLog(@"[%@ %@] fetching %@ with predicate: %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), NSFRC.fetchRequest.entityName, NSFRC.fetchRequest.predicate);
         } else {
-            if (self.debug) NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), self.fetchedResultsController.fetchRequest.entityName);
+            if (self.debug) NSLog(@"[%@ %@] fetching all %@ (i.e., no predicate)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), NSFRC.fetchRequest.entityName);
         }
         NSError *error;
-        BOOL success = [self.fetchedResultsController performFetch:&error];
+        //BOOL success = [self.fetchedResultsController performFetch:&error];
+        BOOL success = [NSFRC performFetch:&error];
         if (!success) NSLog(@"[%@ %@] performFetch: failed", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
         if (error) NSLog(@"[%@ %@] %@ (%@)", NSStringFromClass([self class]), NSStringFromSelector(_cmd), [error localizedDescription], [error localizedFailureReason]);
     } else {
@@ -28,6 +39,46 @@
     }
     [self.tableView reloadData];
 }
+
+
+- (UISearchController *)nameSearchController
+{
+    if (!_nameSearchController) {
+        _nameSearchController = [[UISearchController alloc]initWithSearchResultsController:nil];
+        _nameSearchController.searchResultsUpdater = self;
+        _nameSearchController.dimsBackgroundDuringPresentation = NO;
+        
+        //Test Code
+        //_nameSearchController.searchBar.frame = CGRectMake(0, 0, self.view.frame.size.width, 44);
+        
+       // _nameSearchController.searchBar.frame = CGRectMake(self.nameSearchController.searchBar.frame.origin.x, self.nameSearchController.searchBar.frame.origin.y, self.nameSearchController.searchBar.frame.size.width, 45);
+        
+        
+        
+    }
+    
+    return _nameSearchController;
+}
+
+- (void)setSeachFRC:(NSFetchedResultsController *)newfrc
+{
+    NSFetchedResultsController *oldfrc = _seachFRC;
+    if (newfrc != oldfrc) {
+        _seachFRC = newfrc;
+        newfrc.delegate = self;
+        if ((!self.title || [self.title isEqualToString:oldfrc.fetchRequest.entity.name]) && (!self.navigationController || !self.navigationItem.title)) {
+            self.title = newfrc.fetchRequest.entity.name;
+        }
+        if (newfrc) {
+            if (self.debug) NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
+            [self performFetch:newfrc];
+        } else {
+            if (self.debug) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
+            [self.tableView reloadData];
+        }
+    }
+}
+
 
 - (void)setFetchedResultsController:(NSFetchedResultsController *)newfrc
 {
@@ -40,7 +91,7 @@
         }
         if (newfrc) {
             if (self.debug) NSLog(@"[%@ %@] %@", NSStringFromClass([self class]), NSStringFromSelector(_cmd), oldfrc ? @"updated" : @"set");
-            [self performFetch];
+            [self performFetch:newfrc];
         } else {
             if (self.debug) NSLog(@"[%@ %@] reset to nil", NSStringFromClass([self class]), NSStringFromSelector(_cmd));
             [self.tableView reloadData];
@@ -52,15 +103,33 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    NSInteger sections = [[self.fetchedResultsController sections] count];
+    NSFetchedResultsController * usedNSFRC;
+    
+    if (self.nameSearchController.active) {
+        usedNSFRC = self.seachFRC;
+    } else {
+        usedNSFRC = self.fetchedResultsController;
+    }
+    
+    
+    NSInteger sections = [[usedNSFRC sections] count];
     return sections;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
+    NSFetchedResultsController * usedNSFRC;
+    
+    if (self.nameSearchController.active) {
+        usedNSFRC = self.seachFRC;
+    } else {
+        usedNSFRC = self.fetchedResultsController;
+    }
+    
+    
     NSInteger rows = 0;
-    if ([[self.fetchedResultsController sections] count] > 0) {
-        id <NSFetchedResultsSectionInfo> sectionInfo = [[self.fetchedResultsController sections] objectAtIndex:section];
+    if ([[usedNSFRC sections] count] > 0) {
+        id <NSFetchedResultsSectionInfo> sectionInfo = [[usedNSFRC sections] objectAtIndex:section];
         rows = [sectionInfo numberOfObjects];
     }
     return rows;
@@ -68,17 +137,42 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
-	return [[[self.fetchedResultsController sections] objectAtIndex:section] name];
+    NSFetchedResultsController * usedNSFRC;
+    
+    if (self.nameSearchController.active) {
+        usedNSFRC = self.seachFRC;
+    } else {
+        usedNSFRC = self.fetchedResultsController;
+    }
+    
+	return [[[usedNSFRC sections] objectAtIndex:section] name];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView sectionForSectionIndexTitle:(NSString *)title atIndex:(NSInteger)index
 {
-	return [self.fetchedResultsController sectionForSectionIndexTitle:title atIndex:index];
+    NSFetchedResultsController * usedNSFRC;
+    
+    if (self.nameSearchController.active) {
+        usedNSFRC = self.seachFRC;
+    } else {
+        usedNSFRC = self.fetchedResultsController;
+    }
+    
+    
+	return [usedNSFRC sectionForSectionIndexTitle:title atIndex:index];
 }
 
 - (NSArray *)sectionIndexTitlesForTableView:(UITableView *)tableView
 {
-    return [self.fetchedResultsController sectionIndexTitles];
+    NSFetchedResultsController * usedNSFRC;
+    
+    if (self.nameSearchController.active) {
+        usedNSFRC = self.seachFRC;
+    } else {
+        usedNSFRC = self.fetchedResultsController;
+    }
+    
+    return [usedNSFRC sectionIndexTitles];
 }
 
 #pragma mark - NSFetchedResultsControllerDelegate
@@ -139,6 +233,13 @@
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
     [self.tableView endUpdates];
+}
+
+#pragma mark - UISearchResultsUpdating
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    NSLog(@"Null implementation for UISearchResultsUpdating Protocol");
+    
 }
 
 @end

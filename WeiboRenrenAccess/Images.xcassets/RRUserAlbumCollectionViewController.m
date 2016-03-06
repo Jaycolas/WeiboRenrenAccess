@@ -9,8 +9,12 @@
 #import "RRUserAlbumCollectionViewController.h"
 #import "RRAlbumPhotosCollectionViewController.h"
 #import "RRAlbumUICVC.h"
+#import "RennSDK/RennSDK.h"
+#import "Album+Create.h"
 
 @interface RRUserAlbumCollectionViewController () <UICollectionViewDelegateFlowLayout>
+
+@property (strong, nonatomic) IBOutlet UIActivityIndicatorView *rrAlbumLoadingUAI;
 
 @property (strong, nonatomic) NSArray * albumArray;
 @property (strong, nonatomic) UICollectionViewFlowLayout * rrAlbumFlowLayout;
@@ -33,9 +37,8 @@ static NSString * const reuseIdentifier = @"RRAlbumCell";
     // Register cell classes
     [self.collectionView registerClass:[RRAlbumUICVC class] forCellWithReuseIdentifier:reuseIdentifier];
     
-    NSLog(@"TEST");
-    
     // Do any additional setup after loading the view.
+
 }
 
 
@@ -62,7 +65,17 @@ static NSString * const reuseIdentifier = @"RRAlbumCell";
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    
     [self rrAlbumDataInit];
+    
+    ListAlbumParam * param = [[ListAlbumParam alloc] init];
+    param.ownerId = self.selectedUser.identify;
+    
+    NSLog(@"Chosen user is %@", param.ownerId);
+    
+    [RennClient sendAsynRequest:param delegate:self];
+    
+    [self.rrAlbumLoadingUAI startAnimating];
     
 }
 
@@ -104,17 +117,34 @@ static NSString * const reuseIdentifier = @"RRAlbumCell";
     
     RRAlbumUICVC *cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier forIndexPath:indexPath];
     
-    //Node 0 indicates sections, node 1 indicates
+    //Node 0 indicates sections, node 1 indicates index inside certain section
     NSUInteger albumIndex = [indexPath indexAtPosition:1];
     Album * album = [self.albumArray objectAtIndex:albumIndex];
     
     // Configure the cell
     
     //Album picture
-    UIImage * albumCover;
-    NSData * albumCoverData = [NSData dataWithContentsOfURL:[NSURL URLWithString:album.cover]];
-    albumCover = [UIImage imageWithData:albumCoverData];
-    [cell.albumCoverImageView setImage:albumCover];
+    
+    NSOperationQueue * imageLoadingQ = [[NSOperationQueue alloc]init];
+    
+    NSBlockOperation * imageLoadingBlock = [NSBlockOperation blockOperationWithBlock:^{
+        
+        UIImage * albumCover;
+        NSData * albumCoverData = [NSData dataWithContentsOfURL:[NSURL URLWithString:album.cover]];
+        albumCover = [UIImage imageWithData:albumCoverData];
+        
+        NSOperationQueue * mainQ = [NSOperationQueue mainQueue];
+        
+        [mainQ addOperation:[NSBlockOperation blockOperationWithBlock:^{
+            [cell.albumCoverImageView setImage:albumCover];
+        }]];
+
+
+    }];
+    
+    [imageLoadingQ addOperation:imageLoadingBlock];
+    
+
     
     //Album name
     [cell.albumNameLabel setText:album.name];
@@ -131,7 +161,7 @@ static NSString * const reuseIdentifier = @"RRAlbumCell";
     CGSize itemSize;
     
     //Now we split the width into 4
-    itemSize.width = SCREEN_WIDTH/2;
+    itemSize.width = SCREEN_WIDTH/2 - 5;
     itemSize.height = SCREEN_HEIGHT/3;
     
     return itemSize;
@@ -139,13 +169,13 @@ static NSString * const reuseIdentifier = @"RRAlbumCell";
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumLineSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 10;
+    return 2;
 }
 
 
 - (CGFloat)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout minimumInteritemSpacingForSectionAtIndex:(NSInteger)section
 {
-    return 10;
+    return 2;
 }
 
 
@@ -172,6 +202,9 @@ static NSString * const reuseIdentifier = @"RRAlbumCell";
         dstCVC.managedObjectContext = self.managedObjectContext;
     }
 }
+
+
+
 
 /*
 // Uncomment this method to specify if the specified item should be highlighted during tracking
@@ -201,5 +234,72 @@ static NSString * const reuseIdentifier = @"RRAlbumCell";
 	
 }
 */
+
+#pragma RenrenService Delegate
+
+- (void)rennService:(RennService *)service requestSuccessWithResponse:(id)response
+{
+    
+    
+    //NSArray * friendListJson = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
+    
+    NSLog(@"Current service type is %@", service.type);
+    
+    //Perform segue when got the album infos
+    if ([service.type isEqualToString:@"ListAlbum"]) {
+        
+        NSArray * albumList = (NSArray *)response;
+        for (NSDictionary * album in albumList) {
+            
+            NSDecimalNumber * identify = [album valueForKey:@"id"];
+            NSString * identifyStr = [identify stringValue];
+            NSString * type  = [album valueForKey:@"type"];
+            //Cover has LARGE, MAIN, HEAD, TINY four
+            NSArray * coverSet = [album valueForKey:@"cover"];
+            //Index 2 means HEAD type
+            NSDictionary * headCover = [coverSet objectAtIndex:1];
+            NSString * cover = [headCover valueForKey:@"url"];
+            NSString * name  = [album valueForKey:@"name"];
+            NSString * albumDescription = [album valueForKey:@"albumDescription"];
+            NSString * createTime = [album valueForKey:@"createTime"];
+            NSString * lastModifyTime = [album valueForKey:@"lastModifyTime"];
+            NSString * location = [album valueForKey:@"location"];
+            NSNumber * photoCount = [album valueForKey:@"photoCount"];
+            NSString * accessControl = [album valueForKey:@"accessControl"];
+            
+            //Add album into database
+            Album * addedAlbum = [Album albumWithId:identifyStr albumType:type albumCover:cover albumName:name albumDescription:albumDescription albumCreatTime:createTime albumLastModifyTime:lastModifyTime albumLocation:location albumPhotoCount:photoCount albumAccessControl:accessControl albumPhotos:nil inManagedObjectContext:self.managedObjectContext];
+            
+            
+            if (addedAlbum!=nil) {
+                
+                //Hook up the user and its album
+                [self.selectedUser addAlbumsObject:addedAlbum];
+                addedAlbum.whoTook = self.selectedUser;
+            }
+            else{
+                //TODO Handle errors here
+            }
+            
+            
+        }
+        
+        [self.rrAlbumLoadingUAI stopAnimating];
+        [self rrAlbumDataInit];
+        [self.collectionView reloadData];
+    }
+    
+    //[self performSegueWithIdentifier:@"rrUserToAlbum" sender:self.view];
+}
+
+- (void)rennService:(RennService *)service requestFailWithError:(NSError*)error
+{
+    NSLog(@"requestFailWithError:%@", [error description]);
+    NSString *domain = [error domain];
+    NSString *code = [[error userInfo] objectForKey:@"code"];
+    NSLog(@"requestFailWithError:Error Domain = %@, Error Code = %@", domain, code);
+    //AppLog(@"请求失败: %@", domain);
+}
+
 
 @end

@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WeiboSDK.h"
+#import "AppDelegate.h"
 
-@interface WBViewController : UIViewController
+@interface WBViewController : UIViewController <UIScrollViewDelegate, WBHttpRequestDelegate>
+
+
 
 @end

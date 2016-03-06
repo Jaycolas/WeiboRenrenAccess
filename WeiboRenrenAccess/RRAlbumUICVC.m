@@ -36,6 +36,9 @@
         
         [self.contentView addSubview:_albumCoverImageView];
         
+        
+        _albumCoverImageView.contentMode = UIViewContentModeScaleAspectFit;
+        
     }
     
     return _albumCoverImageView;
@@ -54,6 +57,7 @@
         [_albumNameLabel setTextColor:[UIColor whiteColor]];
         
         [_albumNameLabel setText:@"N/A"];
+        [_albumNameLabel setTextColor:[UIColor blackColor]];
         [self.contentView addSubview:_albumNameLabel];
     }
     

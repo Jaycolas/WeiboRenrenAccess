@@ -240,6 +240,8 @@
         
         if (friendIndex*50 > friendCount) {
             NSLog(@"Has handled all the friends, need to return");
+            //Set friend index back to 0 if need to log out and log in
+            friendIndex = 0;
             return;
         }
         

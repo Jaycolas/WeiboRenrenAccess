@@ -10,9 +10,13 @@
 #import "RennSDK/RennSDK.h"
 #import "User+Create.h"
 
-@interface RRTableTableViewController ()
+@interface RRTableTableViewController () <UISearchBarDelegate>
 
 @property (strong,nonatomic) NSIndexPath * curIndexPath;
+
+
+@property (strong,nonatomic) NSMutableArray * filteredUsers;
+
 
 
 @end
@@ -30,6 +34,29 @@
                                                   }];
 }
 */
+
+- (void)nameSearchControllerSetting
+{
+    self.nameSearchController.searchBar.frame = CGRectMake(self.nameSearchController.searchBar.frame.origin.x, self.nameSearchController.searchBar.frame.origin.y, self.nameSearchController.searchBar.frame.size.width, 45);
+    
+    self.tableView.tableHeaderView = self.nameSearchController.searchBar;
+    
+    
+}
+
+
+
+- (void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    //Set newwork indicator
+    [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+    
+    [self nameSearchControllerSetting];
+    
+    
+}
 
 - (void)setManagedObjectContext:(NSManagedObjectContext *)managedObjectContext
 {
@@ -53,8 +80,15 @@
 {
     UITableViewCell *cell = [self.tableView dequeueReusableCellWithIdentifier:@"User Cell"];
     
-    User * user = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    User * user;
     
+    if (self.nameSearchController.active) {
+        //Node 0 indicates sections, node 1 indicates index within one section
+        user = [self.seachFRC objectAtIndexPath:indexPath];
+        NSLog(@"In searching mode, now user is %@", user.name);
+    } else {
+        user = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    }
     
     cell.textLabel.text = user.name;
     cell.detailTextLabel.text = user.identify;
@@ -71,18 +105,23 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     self.curIndexPath = indexPath;
-    self.selectedUser = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
-    ListAlbumParam * param = [[ListAlbumParam alloc] init];
-    param.ownerId = self.selectedUser.identify;
+    NSFetchedResultsController * usedFRC;
     
-    NSLog(@"Chosen user is %@", param.ownerId);
+    if (self.nameSearchController.active) {
+        usedFRC = self.seachFRC;
+        
+        //Set the searchbar inactive imediately
+        self.nameSearchController.active = NO;
+        
+    } else {
+        usedFRC = self.fetchedResultsController;
+    }
     
-    [RennClient sendAsynRequest:param delegate:self];
+    self.selectedUser = [usedFRC objectAtIndexPath:indexPath];
     
+    [self performSegueWithIdentifier:@"rrUserToAlbum" sender:self];
     
-    
-
 }
 
 - (BOOL) shouldPerformSegueWithIdentifier:(NSString *)identifier sender:(id)sender
@@ -90,8 +129,10 @@
     if ([identifier isEqualToString:@"rrUserToAlbum"]) {
         return NO;
     }
-    
-    return YES;
+    else
+    {
+        return YES;
+    }
 }
 
 
@@ -116,8 +157,40 @@
 }
 
 #pragma mark - Table view data source
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
+{
+    
+    NSFetchedResultsController * usedFetchedRC;
+    /*For search results*/
+    if (self.nameSearchController.active) {
+        usedFetchedRC = self.seachFRC;
+    }
+    /*For normal results*/
+    else {
+        usedFetchedRC = self.fetchedResultsController;
 
+    }
+    
+    NSInteger sections = [[usedFetchedRC sections] count];
+    return sections;
 
+}
+
+#pragma mark - UISearchResultsUpdating
+- (void)updateSearchResultsForSearchController:(UISearchController *)searchController
+{
+    NSString * searchString = [self.nameSearchController.searchBar text];
+    NSPredicate * namePredicate = [NSPredicate predicateWithFormat:@"self.name contains %@", searchString];
+    
+    NSFetchRequest *request = [NSFetchRequest fetchRequestWithEntityName:@"User"];
+    request.predicate = namePredicate;
+    request.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"name"
+                                                              ascending:YES
+                                                               selector:@selector(localizedStandardCompare:)]];
+    
+    self.seachFRC = [[NSFetchedResultsController alloc]initWithFetchRequest:request managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:nil];
+    
+}
 
 
 /*JSON struct for each user*/
@@ -221,56 +294,7 @@
           friendName:(NSString *) name
               avatar:(NSString *) avatarUrl*/
 
-- (void)rennService:(RennService *)service requestSuccessWithResponse:(id)response
-{
 
-    
-    //NSArray * friendListJson = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingAllowFragments error:&error];
-    
-    NSLog(@"Current service type is %@", service.type);
-    
-    //Perform segue when got the album infos
-    if ([service.type isEqualToString:@"ListAlbum"]) {
-        
-        NSArray * albumList = (NSArray *)response;
-        for (NSDictionary * album in albumList) {
-            
-            NSDecimalNumber * identify = [album valueForKey:@"id"];
-            NSString * identifyStr = [identify stringValue];
-            NSString * type  = [album valueForKey:@"type"];
-            //Cover has LARGE, MAIN, HEAD, TINY four
-            NSArray * coverSet = [album valueForKey:@"cover"];
-            //Index 2 means HEAD type
-            NSDictionary * headCover = [coverSet objectAtIndex:1];
-            NSString * cover = [headCover valueForKey:@"url"];
-            NSString * name  = [album valueForKey:@"name"];
-            NSString * albumDescription = [album valueForKey:@"albumDescription"];
-            NSString * createTime = [album valueForKey:@"createTime"];
-            NSString * lastModifyTime = [album valueForKey:@"lastModifyTime"];
-            NSString * location = [album valueForKey:@"location"];
-            NSNumber * photoCount = [album valueForKey:@"photoCount"];
-            NSString * accessControl = [album valueForKey:@"accessControl"];
-            
-            //Add album into database
-            Album * addedAlbum = [Album albumWithId:identifyStr albumType:type albumCover:cover albumName:name albumDescription:albumDescription albumCreatTime:createTime albumLastModifyTime:lastModifyTime albumLocation:location albumPhotoCount:photoCount albumAccessControl:accessControl albumPhotos:nil inManagedObjectContext:self.managedObjectContext];
-            
-            
-            if (addedAlbum!=nil) {
-                
-                //Hook up the user and its album
-                [self.selectedUser addAlbumsObject:addedAlbum];
-                addedAlbum.whoTook = self.selectedUser;
-            }
-            else{
-                //TODO Handle errors here
-            }
-            
-            
-        }
-    }
-    
-    [self performSegueWithIdentifier:@"rrUserToAlbum" sender:self.view];
-}
 
 /*
 @property (nonatomic, retain) NSNumber * id;
@@ -285,14 +309,7 @@
 @property (nonatomic, retain) NSNumber * accessControl;
 @property (nonatomic, retain) NSSet *photos;*/
 
-- (void)rennService:(RennService *)service requestFailWithError:(NSError*)error
-{
-    NSLog(@"requestFailWithError:%@", [error description]);
-    NSString *domain = [error domain];
-    NSString *code = [[error userInfo] objectForKey:@"code"];
-    NSLog(@"requestFailWithError:Error Domain = %@, Error Code = %@", domain, code);
-    //AppLog(@"请求失败: %@", domain);
-}
+
 
 
 /*

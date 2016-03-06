@@ -10,7 +10,6 @@
 		0B2C68DC1C18793A00A36F10 /* RRAlbumUICVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2C68DB1C18793A00A36F10 /* RRAlbumUICVC.m */; };
 		0B2C68E11C19C19F00A36F10 /* User.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2C68E01C19C19F00A36F10 /* User.m */; };
 		0B2C68E41C19C1A000A36F10 /* Album.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2C68E31C19C1A000A36F10 /* Album.m */; };
-		0B2C68E71C19C1A000A36F10 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B2C68E61C19C1A000A36F10 /* Photo.m */; };
 		0B30DB821BCA629D00D4FE04 /* RennSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B30DB811BCA629D00D4FE04 /* RennSDK.framework */; };
 		0B30DB861BCA639B00D4FE04 /* RennSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0B30DB851BCA639B00D4FE04 /* RennSDK.bundle */; };
 		0B30DB881BCA665900D4FE04 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B30DB871BCA665900D4FE04 /* CoreGraphics.framework */; };
@@ -18,6 +17,9 @@
 		0B30DB8C1BCA668100D4FE04 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B30DB8B1BCA668000D4FE04 /* Foundation.framework */; };
 		0B30DB8F1BCA8DF700D4FE04 /* RRViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B30DB8E1BCA8DF700D4FE04 /* RRViewController.m */; };
 		0B30DB921BCAA80700D4FE04 /* RRTableTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B30DB911BCAA80700D4FE04 /* RRTableTableViewController.m */; };
+		0B6E8A7D1C46889A00879C0A /* RRPhotoUICVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B6E8A7C1C46889A00879C0A /* RRPhotoUICVC.m */; };
+		0B7189F21C4D429D00A4EBDB /* PhotoUIVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B7189F11C4D429D00A4EBDB /* PhotoUIVC.m */; };
+		0B7189FB1C4D4E2500A4EBDB /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B7189FA1C4D4E2500A4EBDB /* Photo.m */; };
 		0B74F88D1B92ED62006C8271 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74F88C1B92ED62006C8271 /* main.m */; };
 		0B74F8901B92ED62006C8271 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 0B74F88F1B92ED62006C8271 /* AppDelegate.m */; };
 		0B74F8991B92ED62006C8271 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0B74F8971B92ED62006C8271 /* Main.storyboard */; };
@@ -27,8 +29,20 @@
 		0BACC5031BEB7AC400295246 /* CoreDataTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BACC5021BEB7AC400295246 /* CoreDataTableViewController.m */; };
 		0BACC5071BEB83A000295246 /* RenRenFriendsPhoto.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 0BACC5051BEB83A000295246 /* RenRenFriendsPhoto.xcdatamodeld */; };
 		0BACC5131BEB93A100295246 /* User+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BACC5121BEB93A100295246 /* User+Create.m */; };
+		0BB54D3E1C7F444C00BBEA26 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB54D3D1C7F444C00BBEA26 /* Security.framework */; };
+		0BB54D4C1C7F467B00BBEA26 /* libWeiboSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB54D401C7F467B00BBEA26 /* libWeiboSDK.a */; };
+		0BB54D4D1C7F467B00BBEA26 /* WeiboSDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0BB54D491C7F467B00BBEA26 /* WeiboSDK.bundle */; };
+		0BB54D4F1C7F4C4100BBEA26 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB54D4E1C7F4C4100BBEA26 /* CoreTelephony.framework */; };
+		0BB54D511C7F4C4D00BBEA26 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB54D501C7F4C4D00BBEA26 /* CoreText.framework */; };
+		0BB54D531C7F4C7A00BBEA26 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB54D521C7F4C7A00BBEA26 /* libz.dylib */; };
+		0BB54D551C7F4CC500BBEA26 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB54D541C7F4CC500BBEA26 /* libsqlite3.dylib */; };
+		0BB54D571C7F4CD600BBEA26 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB54D561C7F4CD600BBEA26 /* QuartzCore.framework */; };
+		0BB54D591C7F4CE600BBEA26 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB54D581C7F4CE600BBEA26 /* ImageIO.framework */; };
+		0BB54D5B1C7F4CF200BBEA26 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB54D5A1C7F4CF200BBEA26 /* AdSupport.framework */; };
+		0BB54D5D1C7F4ECA00BBEA26 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0BB54D5C1C7F4ECA00BBEA26 /* SystemConfiguration.framework */; };
 		0BD1A8551C0F432300F0FE14 /* RRUserAlbumCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD1A8541C0F432300F0FE14 /* RRUserAlbumCollectionViewController.m */; };
 		0BD1A8581C10823000F0FE14 /* Album+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BD1A8571C10823000F0FE14 /* Album+Create.m */; };
+		0BFA38511C8C14FF0096FDDD /* WBUserTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BFA38501C8C14FF0096FDDD /* WBUserTableViewController.m */; };
 		0BFEAFE11C2EDEBD00CB7306 /* RRAlbumPhotosCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BFEAFE01C2EDEBD00CB7306 /* RRAlbumPhotosCollectionViewController.m */; };
 		0BFEAFE41C2EE85300CB7306 /* Photo+Create.m in Sources */ = {isa = PBXBuildFile; fileRef = 0BFEAFE31C2EE85300CB7306 /* Photo+Create.m */; };
 /* End PBXBuildFile section */
@@ -50,8 +64,6 @@
 		0B2C68E01C19C19F00A36F10 /* User.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = User.m; sourceTree = "<group>"; };
 		0B2C68E21C19C1A000A36F10 /* Album.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Album.h; sourceTree = "<group>"; };
 		0B2C68E31C19C1A000A36F10 /* Album.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Album.m; sourceTree = "<group>"; };
-		0B2C68E51C19C1A000A36F10 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
-		0B2C68E61C19C1A000A36F10 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		0B30DB811BCA629D00D4FE04 /* RennSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RennSDK.framework; path = "renren-api2-sdk-ios-0.9.5/RennSDK.framework"; sourceTree = "<group>"; };
 		0B30DB851BCA639B00D4FE04 /* RennSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = RennSDK.bundle; path = "renren-api2-sdk-ios-0.9.5 2/RennSDK.bundle"; sourceTree = SOURCE_ROOT; };
 		0B30DB871BCA665900D4FE04 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -61,6 +73,12 @@
 		0B30DB8E1BCA8DF700D4FE04 /* RRViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRViewController.m; sourceTree = "<group>"; };
 		0B30DB901BCAA80700D4FE04 /* RRTableTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRTableTableViewController.h; sourceTree = "<group>"; };
 		0B30DB911BCAA80700D4FE04 /* RRTableTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRTableTableViewController.m; sourceTree = "<group>"; };
+		0B6E8A7B1C46889A00879C0A /* RRPhotoUICVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRPhotoUICVC.h; sourceTree = "<group>"; };
+		0B6E8A7C1C46889A00879C0A /* RRPhotoUICVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRPhotoUICVC.m; sourceTree = "<group>"; };
+		0B7189F01C4D429D00A4EBDB /* PhotoUIVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PhotoUIVC.h; sourceTree = "<group>"; };
+		0B7189F11C4D429D00A4EBDB /* PhotoUIVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PhotoUIVC.m; sourceTree = "<group>"; };
+		0B7189F91C4D4E2500A4EBDB /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		0B7189FA1C4D4E2500A4EBDB /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		0B74F8871B92ED62006C8271 /* WeiboRenrenAccess.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeiboRenrenAccess.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0B74F88B1B92ED62006C8271 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0B74F88C1B92ED62006C8271 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -79,11 +97,34 @@
 		0BACC5061BEB83A000295246 /* RenRenFriendsPhoto.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RenRenFriendsPhoto.xcdatamodel; sourceTree = "<group>"; };
 		0BACC5111BEB93A100295246 /* User+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "User+Create.h"; sourceTree = "<group>"; };
 		0BACC5121BEB93A100295246 /* User+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "User+Create.m"; sourceTree = "<group>"; };
+		0BB54D3D1C7F444C00BBEA26 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		0BB54D401C7F467B00BBEA26 /* libWeiboSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libWeiboSDK.a; sourceTree = "<group>"; };
+		0BB54D411C7F467B00BBEA26 /* WBHttpRequest+WeiboGame.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboGame.h"; sourceTree = "<group>"; };
+		0BB54D421C7F467B00BBEA26 /* WBHttpRequest+WeiboShare.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboShare.h"; sourceTree = "<group>"; };
+		0BB54D431C7F467B00BBEA26 /* WBHttpRequest+WeiboToken.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboToken.h"; sourceTree = "<group>"; };
+		0BB54D441C7F467B00BBEA26 /* WBHttpRequest+WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "WBHttpRequest+WeiboUser.h"; sourceTree = "<group>"; };
+		0BB54D451C7F467B00BBEA26 /* WBHttpRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBHttpRequest.h; sourceTree = "<group>"; };
+		0BB54D461C7F467B00BBEA26 /* WBSDKBasicButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKBasicButton.h; sourceTree = "<group>"; };
+		0BB54D471C7F467B00BBEA26 /* WBSDKCommentButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKCommentButton.h; sourceTree = "<group>"; };
+		0BB54D481C7F467B00BBEA26 /* WBSDKRelationshipButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBSDKRelationshipButton.h; sourceTree = "<group>"; };
+		0BB54D491C7F467B00BBEA26 /* WeiboSDK.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = WeiboSDK.bundle; sourceTree = "<group>"; };
+		0BB54D4A1C7F467B00BBEA26 /* WeiboSDK.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboSDK.h; sourceTree = "<group>"; };
+		0BB54D4B1C7F467B00BBEA26 /* WeiboUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WeiboUser.h; sourceTree = "<group>"; };
+		0BB54D4E1C7F4C4100BBEA26 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		0BB54D501C7F4C4D00BBEA26 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		0BB54D521C7F4C7A00BBEA26 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		0BB54D541C7F4CC500BBEA26 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
+		0BB54D561C7F4CD600BBEA26 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		0BB54D581C7F4CE600BBEA26 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		0BB54D5A1C7F4CF200BBEA26 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		0BB54D5C1C7F4ECA00BBEA26 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0BD1A8521C0DE78E00F0FE14 /* RRDBAvalability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RRDBAvalability.h; sourceTree = "<group>"; };
 		0BD1A8531C0F432300F0FE14 /* RRUserAlbumCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RRUserAlbumCollectionViewController.h; path = Images.xcassets/RRUserAlbumCollectionViewController.h; sourceTree = "<group>"; };
 		0BD1A8541C0F432300F0FE14 /* RRUserAlbumCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RRUserAlbumCollectionViewController.m; path = Images.xcassets/RRUserAlbumCollectionViewController.m; sourceTree = "<group>"; };
 		0BD1A8561C10823000F0FE14 /* Album+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Album+Create.h"; sourceTree = "<group>"; };
 		0BD1A8571C10823000F0FE14 /* Album+Create.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Album+Create.m"; sourceTree = "<group>"; };
+		0BFA384F1C8C14FF0096FDDD /* WBUserTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WBUserTableViewController.h; sourceTree = "<group>"; };
+		0BFA38501C8C14FF0096FDDD /* WBUserTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WBUserTableViewController.m; sourceTree = "<group>"; };
 		0BFEAFDF1C2EDEBD00CB7306 /* RRAlbumPhotosCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRAlbumPhotosCollectionViewController.h; sourceTree = "<group>"; };
 		0BFEAFE01C2EDEBD00CB7306 /* RRAlbumPhotosCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRAlbumPhotosCollectionViewController.m; sourceTree = "<group>"; };
 		0BFEAFE21C2EE85300CB7306 /* Photo+Create.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Photo+Create.h"; sourceTree = "<group>"; };
@@ -95,6 +136,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0BB54D5D1C7F4ECA00BBEA26 /* SystemConfiguration.framework in Frameworks */,
+				0BB54D5B1C7F4CF200BBEA26 /* AdSupport.framework in Frameworks */,
+				0BB54D591C7F4CE600BBEA26 /* ImageIO.framework in Frameworks */,
+				0BB54D571C7F4CD600BBEA26 /* QuartzCore.framework in Frameworks */,
+				0BB54D551C7F4CC500BBEA26 /* libsqlite3.dylib in Frameworks */,
+				0BB54D531C7F4C7A00BBEA26 /* libz.dylib in Frameworks */,
+				0BB54D511C7F4C4D00BBEA26 /* CoreText.framework in Frameworks */,
+				0BB54D4F1C7F4C4100BBEA26 /* CoreTelephony.framework in Frameworks */,
+				0BB54D3E1C7F444C00BBEA26 /* Security.framework in Frameworks */,
+				0BB54D4C1C7F467B00BBEA26 /* libWeiboSDK.a in Frameworks */,
 				0B30DB8C1BCA668100D4FE04 /* Foundation.framework in Frameworks */,
 				0B30DB8A1BCA666C00D4FE04 /* UIKit.framework in Frameworks */,
 				0B30DB881BCA665900D4FE04 /* CoreGraphics.framework in Frameworks */,
@@ -117,6 +168,8 @@
 			children = (
 				0B2C68DA1C18793A00A36F10 /* RRAlbumUICVC.h */,
 				0B2C68DB1C18793A00A36F10 /* RRAlbumUICVC.m */,
+				0B6E8A7B1C46889A00879C0A /* RRPhotoUICVC.h */,
+				0B6E8A7C1C46889A00879C0A /* RRPhotoUICVC.m */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -124,6 +177,16 @@
 		0B30DB831BCA631900D4FE04 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				0BB54D5C1C7F4ECA00BBEA26 /* SystemConfiguration.framework */,
+				0BB54D5A1C7F4CF200BBEA26 /* AdSupport.framework */,
+				0BB54D581C7F4CE600BBEA26 /* ImageIO.framework */,
+				0BB54D561C7F4CD600BBEA26 /* QuartzCore.framework */,
+				0BB54D541C7F4CC500BBEA26 /* libsqlite3.dylib */,
+				0BB54D521C7F4C7A00BBEA26 /* libz.dylib */,
+				0BB54D501C7F4C4D00BBEA26 /* CoreText.framework */,
+				0BB54D4E1C7F4C4100BBEA26 /* CoreTelephony.framework */,
+				0BB54D3F1C7F467B00BBEA26 /* libWeiboSDK */,
+				0BB54D3D1C7F444C00BBEA26 /* Security.framework */,
 				0B30DB8B1BCA668000D4FE04 /* Foundation.framework */,
 				0B30DB891BCA666C00D4FE04 /* UIKit.framework */,
 				0B30DB871BCA665900D4FE04 /* CoreGraphics.framework */,
@@ -138,6 +201,25 @@
 				0B30DB851BCA639B00D4FE04 /* RennSDK.bundle */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		0B7189EF1C4D41E300A4EBDB /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0BFA384F1C8C14FF0096FDDD /* WBUserTableViewController.h */,
+				0BFA38501C8C14FF0096FDDD /* WBUserTableViewController.m */,
+				0BACC5011BEB7AC400295246 /* CoreDataTableViewController.h */,
+				0BACC5021BEB7AC400295246 /* CoreDataTableViewController.m */,
+				0B7189F01C4D429D00A4EBDB /* PhotoUIVC.h */,
+				0B7189F11C4D429D00A4EBDB /* PhotoUIVC.m */,
+				0BFEAFDF1C2EDEBD00CB7306 /* RRAlbumPhotosCollectionViewController.h */,
+				0BFEAFE01C2EDEBD00CB7306 /* RRAlbumPhotosCollectionViewController.m */,
+				0B30DB901BCAA80700D4FE04 /* RRTableTableViewController.h */,
+				0B30DB911BCAA80700D4FE04 /* RRTableTableViewController.m */,
+				0BD1A8531C0F432300F0FE14 /* RRUserAlbumCollectionViewController.h */,
+				0BD1A8541C0F432300F0FE14 /* RRUserAlbumCollectionViewController.m */,
+			);
+			name = ViewControllers;
 			sourceTree = "<group>";
 		};
 		0B74F87E1B92ED62006C8271 = {
@@ -162,18 +244,11 @@
 		0B74F8891B92ED62006C8271 /* WeiboRenrenAccess */ = {
 			isa = PBXGroup;
 			children = (
+				0B7189EF1C4D41E300A4EBDB /* ViewControllers */,
 				0B2C68D91C1878F800A36F10 /* View */,
 				0BACC5041BEB7BAE00295246 /* Model */,
 				0B30DB841BCA636600D4FE04 /* Resources */,
 				0B74F8971B92ED62006C8271 /* Main.storyboard */,
-				0BFEAFDF1C2EDEBD00CB7306 /* RRAlbumPhotosCollectionViewController.h */,
-				0BFEAFE01C2EDEBD00CB7306 /* RRAlbumPhotosCollectionViewController.m */,
-				0B30DB901BCAA80700D4FE04 /* RRTableTableViewController.h */,
-				0BD1A8531C0F432300F0FE14 /* RRUserAlbumCollectionViewController.h */,
-				0BD1A8541C0F432300F0FE14 /* RRUserAlbumCollectionViewController.m */,
-				0B30DB911BCAA80700D4FE04 /* RRTableTableViewController.m */,
-				0BACC5011BEB7AC400295246 /* CoreDataTableViewController.h */,
-				0BACC5021BEB7AC400295246 /* CoreDataTableViewController.m */,
 				0B74F89A1B92ED62006C8271 /* Images.xcassets */,
 				0B74F88A1B92ED62006C8271 /* Supporting Files */,
 				0B74F8B31B92F352006C8271 /* WBViewController.h */,
@@ -217,11 +292,11 @@
 		0BACC5041BEB7BAE00295246 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				0B7189F91C4D4E2500A4EBDB /* Photo.h */,
+				0B7189FA1C4D4E2500A4EBDB /* Photo.m */,
 				0BFEAFE21C2EE85300CB7306 /* Photo+Create.h */,
 				0BFEAFE31C2EE85300CB7306 /* Photo+Create.m */,
 				0BACC5051BEB83A000295246 /* RenRenFriendsPhoto.xcdatamodeld */,
-				0B2C68E51C19C1A000A36F10 /* Photo.h */,
-				0B2C68E61C19C1A000A36F10 /* Photo.m */,
 				0B2C68E21C19C1A000A36F10 /* Album.h */,
 				0B2C68E31C19C1A000A36F10 /* Album.m */,
 				0B2C68DF1C19C19F00A36F10 /* User.h */,
@@ -232,6 +307,25 @@
 				0BACC5121BEB93A100295246 /* User+Create.m */,
 			);
 			name = Model;
+			sourceTree = "<group>";
+		};
+		0BB54D3F1C7F467B00BBEA26 /* libWeiboSDK */ = {
+			isa = PBXGroup;
+			children = (
+				0BB54D401C7F467B00BBEA26 /* libWeiboSDK.a */,
+				0BB54D411C7F467B00BBEA26 /* WBHttpRequest+WeiboGame.h */,
+				0BB54D421C7F467B00BBEA26 /* WBHttpRequest+WeiboShare.h */,
+				0BB54D431C7F467B00BBEA26 /* WBHttpRequest+WeiboToken.h */,
+				0BB54D441C7F467B00BBEA26 /* WBHttpRequest+WeiboUser.h */,
+				0BB54D451C7F467B00BBEA26 /* WBHttpRequest.h */,
+				0BB54D461C7F467B00BBEA26 /* WBSDKBasicButton.h */,
+				0BB54D471C7F467B00BBEA26 /* WBSDKCommentButton.h */,
+				0BB54D481C7F467B00BBEA26 /* WBSDKRelationshipButton.h */,
+				0BB54D491C7F467B00BBEA26 /* WeiboSDK.bundle */,
+				0BB54D4A1C7F467B00BBEA26 /* WeiboSDK.h */,
+				0BB54D4B1C7F467B00BBEA26 /* WeiboUser.h */,
+			);
+			path = libWeiboSDK;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -317,6 +411,7 @@
 				0B74F8991B92ED62006C8271 /* Main.storyboard in Resources */,
 				0B74F89B1B92ED62006C8271 /* Images.xcassets in Resources */,
 				0B30DB861BCA639B00D4FE04 /* RennSDK.bundle in Resources */,
+				0BB54D4D1C7F467B00BBEA26 /* WeiboSDK.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -334,7 +429,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				0B2C68E71C19C1A000A36F10 /* Photo.m in Sources */,
+				0BFA38511C8C14FF0096FDDD /* WBUserTableViewController.m in Sources */,
 				0BFEAFE11C2EDEBD00CB7306 /* RRAlbumPhotosCollectionViewController.m in Sources */,
 				0BFEAFE41C2EE85300CB7306 /* Photo+Create.m in Sources */,
 				0B30DB921BCAA80700D4FE04 /* RRTableTableViewController.m in Sources */,
@@ -342,12 +437,15 @@
 				0BACC5131BEB93A100295246 /* User+Create.m in Sources */,
 				0BACC5031BEB7AC400295246 /* CoreDataTableViewController.m in Sources */,
 				0BACC5071BEB83A000295246 /* RenRenFriendsPhoto.xcdatamodeld in Sources */,
+				0B6E8A7D1C46889A00879C0A /* RRPhotoUICVC.m in Sources */,
 				0BD1A8581C10823000F0FE14 /* Album+Create.m in Sources */,
 				0B74F8B51B92F352006C8271 /* WBViewController.m in Sources */,
 				0B2C68DC1C18793A00A36F10 /* RRAlbumUICVC.m in Sources */,
 				0B2C68E11C19C19F00A36F10 /* User.m in Sources */,
+				0B7189FB1C4D4E2500A4EBDB /* Photo.m in Sources */,
 				0B2C68E41C19C1A000A36F10 /* Album.m in Sources */,
 				0B74F8901B92ED62006C8271 /* AppDelegate.m in Sources */,
+				0B7189F21C4D429D00A4EBDB /* PhotoUIVC.m in Sources */,
 				0B74F88D1B92ED62006C8271 /* main.m in Sources */,
 				0BD1A8551C0F432300F0FE14 /* RRUserAlbumCollectionViewController.m in Sources */,
 			);
@@ -472,6 +570,11 @@
 				GCC_PREFIX_HEADER = WeiboRenrenAccess/RRWBPrefixHeader.pch;
 				INFOPLIST_FILE = WeiboRenrenAccess/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libWeiboSDK",
+				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -487,6 +590,11 @@
 				GCC_PREFIX_HEADER = WeiboRenrenAccess/RRWBPrefixHeader.pch;
 				INFOPLIST_FILE = WeiboRenrenAccess/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/libWeiboSDK",
+				);
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
